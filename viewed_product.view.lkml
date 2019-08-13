@@ -1,5 +1,5 @@
 view: viewed_product {
-  sql_table_name: SHOPIFY.viewed_product ;;
+  sql_table_name: SAN_WEBSITE_PROD.viewed_product ;;
 
   dimension: id {
     primary_key: yes

@@ -1,5 +1,5 @@
 view: tracks {
-  sql_table_name: SHOPIFY.tracks ;;
+  sql_table_name: SAN_WEBSITE_PROD.tracks ;;
 
   dimension: id {
     primary_key: yes

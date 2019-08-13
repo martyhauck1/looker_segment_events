@@ -1,19 +1,19 @@
 view: aliases_mapping {
   derived_table: {
-   # sql_trigger_value: select count(*) from SHOPIFY.tracks ;;
+   # sql_trigger_value: select count(*) from SAN_WEBSITE_PROD.tracks ;;
     sql: with
       all_mappings as (
         select anonymous_id
         , user_id
         , timestamp as timestamp
-        from SHOPIFY.tracks
+        from SAN_WEBSITE_PROD.tracks
 
         union distinct
 
         select user_id
           , null
           , timestamp
-        from SHOPIFY.tracks
+        from SAN_WEBSITE_PROD.tracks
       )
 
       select

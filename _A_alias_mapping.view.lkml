@@ -1,6 +1,6 @@
 view: page_aliases_mapping {
   derived_table: {
-    #sql_trigger_value: select count(*) from SHOPIFY.tracks ;;
+    #sql_trigger_value: select count(*) from SAN_WEBSITE_PROD.tracks ;;
     sql: with
       -- Establish all child-to-parent edges from tables (tracks, pages, aliases)
       all_mappings as (
@@ -8,7 +8,7 @@ view: page_aliases_mapping {
           anonymous_id
           ,user_id
           ,timestamp as timestamp
-        from SHOPIFY.tracks
+        from SAN_WEBSITE_PROD.tracks
 
         union distinct
 
@@ -16,7 +16,7 @@ view: page_aliases_mapping {
           user_id
           ,null
           ,timestamp
-        from SHOPIFY.tracks
+        from SAN_WEBSITE_PROD.tracks
 
         union distinct
 
@@ -24,7 +24,7 @@ view: page_aliases_mapping {
           anonymous_id
           ,user_id
           ,timestamp
-        from SHOPIFY.pages
+        from SAN_WEBSITE_PROD.pages
 
         union distinct
 
@@ -32,7 +32,7 @@ view: page_aliases_mapping {
           user_id
           ,null
           ,timestamp
-        from SHOPIFY.pages
+        from SAN_WEBSITE_PROD.pages
       )
       select * from (
       select

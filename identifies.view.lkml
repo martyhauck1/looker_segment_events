@@ -1,5 +1,5 @@
 view: identifies {
-  sql_table_name: SHOPIFY.identifies_view ;;
+  sql_table_name: SAN_WEBSITE_PROD.identifies_view ;;
 
   dimension: id {
     primary_key: yes

@@ -1,4 +1,4 @@
-connection: "snowflake"
+connection: "snowflake_landing_zone"
 
 # include all views in this project
 # - include: "*.dashboard.lookml"  # include all dashboards in this project

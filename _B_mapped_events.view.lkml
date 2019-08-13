@@ -11,7 +11,7 @@ view: mapped_events {
           ,t.timestamp
           ,NULL as referrer
           ,'tracks' as event_source
-        from SHOPIFY.tracks as t
+        from SAN_WEBSITE_PROD.tracks as t
         inner join ${page_aliases_mapping.SQL_TABLE_NAME} as a2v
         on a2v.alias = coalesce(t.user_id, t.anonymous_id)
 
@@ -23,7 +23,7 @@ view: mapped_events {
           ,t.timestamp
           ,t.referrer as referrer
           ,'pages' as event_source
-        from SHOPIFY.pages as t
+        from SAN_WEBSITE_PROD.pages as t
         inner join ${page_aliases_mapping.SQL_TABLE_NAME} as a2v
           on a2v.alias = coalesce(t.user_id, t.anonymous_id)
       ) as e
