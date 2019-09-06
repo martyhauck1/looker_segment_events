@@ -9,6 +9,7 @@ view: track_facts {
           , t.event AS event
           , s.session_id
           , t.looker_visitor_id
+          , t.path
           , row_number() over(partition by s.session_id order by t.timestamp) as track_sequence_number
         from ${mapped_tracks.SQL_TABLE_NAME} as t
         inner join ${sessions_trk.SQL_TABLE_NAME} as s
@@ -42,6 +43,10 @@ view: track_facts {
 
   dimension: looker_visitor_id {
     sql: ${TABLE}.looker_visitor_id ;;
+  }
+
+  dimension: path {
+    sql: ${TABLE}.path ;;
   }
 
   dimension: sequence_number {

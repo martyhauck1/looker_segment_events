@@ -46,10 +46,10 @@ where (idle_time_minutes > 30 or idle_time_minutes is null)
        ;;
   }
 
-  dimension: session_duration_minutes {
-    type: number
-    sql: timestamp_diff(${session_pg_trk_facts.end_time}, ${start_time}, minute) ;;
-  }
+#   dimension: session_duration_minutes {
+#     type: number
+#     sql: timestamp_diff(${session_pg_trk_facts.end_time}, ${start_time}, minute) ;;
+#   }
 
   measure: count {
     type: count
@@ -72,11 +72,11 @@ where (idle_time_minutes > 30 or idle_time_minutes is null)
     sql: ${count} / nullif(${count_visitors}, 0) ;;
   }
 
-  measure: avg_session_duration_minutes {
-    type: average
-    sql: ${session_duration_minutes} ;;
-    value_format_name: decimal_1
-  }
+#   measure: avg_session_duration_minutes {
+#     type: average
+#     sql: ${session_duration_minutes} ;;
+#     value_format_name: decimal_1
+#   }
 
   set: detail {
     fields: [session_id, looker_visitor_id, start_time, session_sequence_number, next_session_start_at]

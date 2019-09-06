@@ -10,6 +10,8 @@ view: session_trk_facts {
         , sum(case when map.event = 'product_viewed' then 1 else null end) as cnt_viewed_product
         , sum(case when map.event = 'product_added' then 1 else null end) as cnt_product_added
         , sum(case when map.event = 'order_completed' then 1 else null end) as cnt_order_completed
+        , sum(case when map.event = 'order_completed' and map.path = '/buy' then 1 else null end) as cnt_order_completed_main
+        , sum(case when map.event = 'order_completed' and map.path = '/checkout' then 1 else null end) as cnt_order_completed_acq
 
       FROM ${sessions_trk.SQL_TABLE_NAME} AS s
       LEFT JOIN ${track_facts.SQL_TABLE_NAME} as map on map.session_id = s.session_id
@@ -54,6 +56,15 @@ view: session_trk_facts {
     sql: ${TABLE}.cnt_order_completed > 0 ;;
   }
 
+  dimension: order_completed_main {
+    type: yesno
+    sql: ${TABLE}.cnt_order_completed_main > 0 ;;
+  }
+
+  dimension: order_completed_acq {
+    type: yesno
+    sql: ${TABLE}.cnt_order_completed_acq > 0 ;;
+  }
 
   dimension: signup {
     type: yesno
@@ -83,6 +94,26 @@ view: session_trk_facts {
 
     filters: {
       field: order_completed
+      value: "yes"
+    }
+  }
+
+
+  measure: count_order_completed_main {
+    type: count
+
+    filters: {
+      field: order_completed_main
+      value: "yes"
+    }
+  }
+
+
+  measure: count_order_completed_acq {
+    type: count
+
+    filters: {
+      field: order_completed_acq
       value: "yes"
     }
   }

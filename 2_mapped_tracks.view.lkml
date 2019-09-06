@@ -9,6 +9,7 @@ view: mapped_tracks {
           ,a2v.looker_visitor_id
           ,t.timestamp
           ,t.event as event
+          ,t.CONTEXT_PAGE_PATH as path
         from SAN_WEBSITE_PROD.tracks as t
         inner join ${aliases_mapping.SQL_TABLE_NAME} as a2v
         on a2v.alias = coalesce(t.user_id, t.anonymous_id)
@@ -43,6 +44,10 @@ view: mapped_tracks {
   dimension: idle_time_minutes {
     type: number
     sql: ${TABLE}.idle_time_minutes ;;
+  }
+
+  dimension: path {
+    sql: ${TABLE}.path ;;
   }
 
   set: detail {

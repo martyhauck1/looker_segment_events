@@ -54,3 +54,7 @@ explore: event_facts {
     relationship: many_to_one
   }
 }
+  explore: sessions_pg_trk {
+    view_label: "Sessions"
+    label: "Sessions"
+  }
