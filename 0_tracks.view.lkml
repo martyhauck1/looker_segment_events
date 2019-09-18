@@ -50,27 +50,30 @@ view: tracks {
     type: count
     drill_fields: [id, users.context_library_name, users.id]
   }
-}
 
-# ## Advanced Fields (require joins to other views)
+
+
+
+}
+# # Advanced Fields (require joins to other views)
 #
 #   - dimension_group: weeks_since_first_visit
 #     type: number
-#     sql: FLOOR(DATEDIFF(day,${user_session_facts.first_date}, ${received_date})/7)
+#     sql: FLOOR(DATEDIFF(day,${user_session_facts.first_date}, ${received_date})/7);;
 #
 #   - dimension: is_new_user
 #     sql:  |
 #         CASE
 #         WHEN ${received_date} = ${user_session_facts.first_date} THEN 'New User'
-#         ELSE 'Returning User' END
+#         ELSE 'Returning User' END;;
 #
 #   - measure: count_percent_of_total
 #     type: percent_of_total
 #     sql: ${count}
 #     value_format_name: decimal_1
-#
-#
-# ## Advanced -- Session Count Funnel Meausures
+
+
+## Advanced -- Session Count Funnel Meausures
 #
 #   - filter: event1
 #     suggestions: [added_item, app_became_active, app_entered_background,
@@ -105,7 +108,7 @@ view: tracks {
 #                   signed_up, submitted_order, switched_auth_forms, tapped_shipit,
 #                   view_buy_page, viewed_auth_page]
 #
-#   - measure: event2_session_count
+#   measure: event2_session_count {
 #     type: number
 #     sql: |
 #       COUNT(
@@ -116,9 +119,10 @@ view: tracks {
 #               THEN ${track_facts.session_id}
 #             ELSE NULL END
 #         )
-#       )
+#       );;
 #
-#   - filter: event3
+#
+#   filter: event3
 #     suggestions: [added_item, app_became_active, app_entered_background,
 #                   app_entered_foreground, app_launched, app_resigned_active,
 #                   asked_for_sizes, completed_order, failed_auth_validation, logged_in,
@@ -127,7 +131,7 @@ view: tracks {
 #                   shipping_form_failed, shipping_form_shown, shipping_form_submitted,
 #                   signed_up, submitted_order, switched_auth_forms, tapped_shipit,
 #                   view_buy_page, viewed_auth_page]
-#
+#    }
 #   - measure: event3_session_count
 #     type: number
 #     sql: |
@@ -163,3 +167,4 @@ view: tracks {
 #             ELSE NULL END
 #         )
 #       )
+#

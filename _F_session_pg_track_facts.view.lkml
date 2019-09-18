@@ -4,13 +4,15 @@ view: session_pg_trk_facts {
   # sql_trigger_value: select COUNT(*) from ${event_facts.SQL_TABLE_NAME} ;;
     sql: select s.session_id
         , first_referrer
+        , first_campaign_source
+        , first_campaign_name
         , max(t2s.timestamp) as end_at
         , count(case when t2s.event_source = 'tracks' then 1 else null end) as tracks_count
       from ${sessions_pg_trk.SQL_TABLE_NAME} as s
         inner join ${event_facts.SQL_TABLE_NAME} as t2s
           on s.session_id = t2s.session_id
           --using(session_id)
-      group by 1,2
+      group by 1,2,3,4
        ;;
   }
 
@@ -33,6 +35,14 @@ view: session_pg_trk_facts {
     sql: CASE WHEN ${first_referrer_domain} like '%facebook%' THEN 'facebook' WHEN ${first_referrer_domain} like '%google%' THEN 'google' ELSE ${first_referrer_domain} END ;;
   }
 
+  dimension: first_campaign_source {
+    sql: ${TABLE}.first_campaign_source ;;
+  }
+
+  dimension: first_campaign_name {
+    sql: ${TABLE}.first_campaign_name ;;
+  }
+
   dimension_group: end {
     type: time
     timeframes: [time, date, week, month, raw]
@@ -48,6 +58,7 @@ view: session_pg_trk_facts {
     type: number
     sql: ${TABLE}.referrer ;;
   }
+
 
   dimension: tracks_count_tier {
     type: tier

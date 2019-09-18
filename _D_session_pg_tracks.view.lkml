@@ -19,7 +19,7 @@ where (idle_time_minutes > 30 or idle_time_minutes is null)
   }
 
   dimension: looker_visitor_id {
-    type: number
+    type: string
     sql: ${TABLE}.looker_visitor_id ;;
   }
 

@@ -5,6 +5,9 @@ view: event_facts {
     sql: select t.timestamp
         , t.anonymous_id
         , t.event_id
+        , t.detail_track_id
+        , first_value(t.context_campaign_source) over (partition by s.session_id order by t.timestamp rows between unbounded preceding and unbounded following) as first_campaign_source
+        , first_value(t.context_campaign_name) over (partition by s.session_id order by t.timestamp rows between unbounded preceding and unbounded following) as first_campaign_name
         , t.event_source
         , s.session_id
         , t.looker_visitor_id
@@ -24,6 +27,10 @@ view: event_facts {
     primary_key: yes
     #     hidden: true
     sql: ${TABLE}.event_id ;;
+  }
+
+  dimension: detail_track_id {
+    sql: ${TABLE}.detail_track_id ;;
   }
 
   dimension: session_id {

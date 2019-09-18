@@ -22,6 +22,11 @@ view: pages {
     sql: ${TABLE}.context_library_version ;;
   }
 
+  dimension: context_campaign_source {
+    type: string
+    sql: ${TABLE}.context_campaign_source ;;
+  }
+
   dimension: name {
     type: string
     sql: ${TABLE}.name ;;

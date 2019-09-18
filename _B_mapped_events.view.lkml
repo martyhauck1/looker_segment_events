@@ -7,9 +7,12 @@ view: mapped_events {
       from (
         select cast(t.timestamp AS string) ||  t.anonymous_id ||  '-t' as event_id
           ,t.anonymous_id
+          ,t.id as detail_track_id
           ,coalesce(a2v.looker_visitor_id,a2v.alias) as looker_visitor_id
           ,t.timestamp
-          ,NULL as referrer
+          , NULL as context_campaign_source
+          , NULL as context_campaign_name
+          , NULL as referrer
           ,'tracks' as event_source
         from SAN_WEBSITE_PROD.tracks as t
         inner join ${page_aliases_mapping.SQL_TABLE_NAME} as a2v
@@ -19,8 +22,11 @@ view: mapped_events {
 
         select cast(t.timestamp AS string) || t.anonymous_id || '-p' as event_id
           ,t.anonymous_id
+          , NULL as detail_track_id
           ,coalesce(a2v.looker_visitor_id,a2v.alias) as looker_visitor_id
           ,t.timestamp
+          ,t.context_campaign_source as context_campaign_source
+          , t.context_campaign_name as context_campaign_name
           ,t.referrer as referrer
           ,'pages' as event_source
         from SAN_WEBSITE_PROD.pages as t
@@ -34,6 +40,10 @@ view: mapped_events {
     sql: ${TABLE}.event_id ;;
   }
 
+  dimension: detail_track_id {
+    sql: ${TABLE}.detail_track_id ;;
+  }
+
   dimension: looker_visitor_id {
     sql: ${TABLE}.looker_visitor_id ;;
   }
@@ -42,14 +52,20 @@ view: mapped_events {
     sql: ${TABLE}.anonymous_id ;;
   }
 
+  dimension: context_campaign_source {
+    sql: ${TABLE}.context_campaign_source ;;
+  }
+
   dimension_group: timestamp {
     type: time
     timeframes: [time, date, week, month]
     sql: ${TABLE}.timestamp ;;
   }
 
-  #   - dimension: event
-  #     sql: ${TABLE}.event
+  # dimension: event {
+  #   sql: ${TABLE}.event;;
+  # }
+
 
   dimension: referrer {
     sql: ${TABLE}.referrer ;;
