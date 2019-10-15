@@ -126,7 +126,7 @@ view: order_summary {
     sql: IFF(${TABLE}.customer_type LIKE 'Prev%','Previous',${customer_type}) ;;
   }
 
-  dimension: email {
+  dimension: email { hidden: yes
     type: string
     sql: ${TABLE}.email ;;
   }
