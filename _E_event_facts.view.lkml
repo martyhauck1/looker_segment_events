@@ -8,7 +8,7 @@ view: event_facts {
         , t.detail_track_id
         , first_value(t.context_campaign_source) over (partition by s.session_id order by t.timestamp rows between unbounded preceding and unbounded following) as first_campaign_source
         , first_value(t.context_campaign_name) over (partition by s.session_id order by t.timestamp rows between unbounded preceding and unbounded following) as first_campaign_name
-        , first_value(t.context_campaign_name) over (partition by s.session_id order by t.timestamp rows between unbounded preceding and unbounded following) as first_campaign_name
+        , first_value(t.context_campaign_medium) over (partition by s.session_id order by t.timestamp rows between unbounded preceding and unbounded following) as first_campaign_medium
         , last_value(t.event) over (partition by s.session_id order by t.timestamp rows between unbounded preceding and unbounded following) as last_event_session
         , t.event_source
         , t.event
