@@ -8,7 +8,7 @@
   - name: event1
     title: 'First Event'
     type: field_filter
-    model: snowflake_segment_tracks
+    model: snowflake_segment_tracks_2
     explore: track_facts
     field: track_facts.event
     default_value: 'signup'
@@ -16,7 +16,7 @@
   - name: event2
     title: 'Second Event'
     type: field_filter
-    model: snowflake_segment_tracks
+    model: snowflake_segment_tracks_2
     explore: track_facts
     field: track_facts.event
     default_value: 'viewed_product'

@@ -83,19 +83,7 @@ explore: event_facts {
     relationship: many_to_one
   }
 
-  join: fb_ads {
-    view_label: "Facebook Ads"
-    type: left_outer
-    sql_on: ${session_pg_trk_facts.first_campaign_name} = ${fb_ads.id} ;;
-    relationship: many_to_one
-  }
 
-  join: fb_insights {
-    view_label: "Facebook Ads"
-    type: inner
-    sql_on: ${fb_ads.id} = ${fb_insights.ad_id} ;;
-    relationship: one_to_many
-  }
 }
   explore: sessions_pg_trk {
     view_label: "Sessions"

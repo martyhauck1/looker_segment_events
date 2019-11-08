@@ -10,8 +10,11 @@ view: mapped_events {
           ,t.id as detail_track_id
           ,coalesce(a2v.looker_visitor_id,a2v.alias) as looker_visitor_id
           ,t.timestamp
+          , t.event
           , NULL as context_campaign_source
+          , NULL as context_campaign_medium
           , NULL as context_campaign_name
+          , t.context_user_agent
           , NULL as referrer
           ,'tracks' as event_source
         from SAN_WEBSITE_PROD.tracks as t
@@ -25,8 +28,11 @@ view: mapped_events {
           , NULL as detail_track_id
           ,coalesce(a2v.looker_visitor_id,a2v.alias) as looker_visitor_id
           ,t.timestamp
+          , t.name || '-p' as event
           ,t.context_campaign_source as context_campaign_source
+          ,t.context_campaign_medium as context_campaign_medium
           , t.context_campaign_name as context_campaign_name
+          , t.context_user_agent
           ,t.referrer as referrer
           ,'pages' as event_source
         from SAN_WEBSITE_PROD.pages as t
@@ -38,6 +44,15 @@ view: mapped_events {
 
   dimension: event_id {
     sql: ${TABLE}.event_id ;;
+  }
+
+  dimension: event {
+    sql: ${TABLE}.event ;;
+  }
+
+
+  dimension: context_user_agent {
+    sql: ${TABLE}.context_user_agent ;;
   }
 
   dimension: detail_track_id {

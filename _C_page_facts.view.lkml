@@ -1,13 +1,13 @@
 view: page_facts {
   derived_table: {
-   # sql_trigger_value: select count(*) from ${mapped_events.SQL_TABLE_NAME} ;;
+    # sql_trigger_value: select count(*) from ${mapped_events.SQL_TABLE_NAME} ;;
     sql: SELECT
        e.event_id AS event_id
       ,e.looker_visitor_id
       ,e.timestamp
       ,CASE
-          WHEN timestamp_diff(LEAD(e.timestamp) OVER(PARTITION BY e.looker_visitor_id ORDER BY e.timestamp), e.timestamp, second) > 30*60 THEN NULL
-          ELSE timestamp_diff(LEAD(e.timestamp) OVER(PARTITION BY e.looker_visitor_id ORDER BY e.timestamp), e.timestamp, second) END AS lead_idle_time_condition
+          WHEN timestamp_diff(LEAD(e.timestamp) OVER(PARTITION BY e.looker_visitor_id ORDER BY e.timestamp), e.timestamp, seconds) > 30*60 THEN NULL
+          ELSE timestamp_diff(LEAD(e.timestamp) OVER(PARTITION BY e.looker_visitor_id ORDER BY e.timestamp), e.timestamp, seconds) END AS lead_idle_time_condition
 FROM ${mapped_events.SQL_TABLE_NAME} AS e
  ;;
   }
